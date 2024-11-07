@@ -16,7 +16,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { map, Observable, startWith } from 'rxjs';
-import { airlineNumberValidator, arrivalTimeValidator } from '../utility/flightValidator';
+import { airlineNumberValidator, arrivalDateTimeValidator, wholeNumberValidator } from '../utility/flightValidator';
+import { OnlyWholeNumberDirective } from '../utility/only-whole-number.directive';
 import { FlightInfoService } from '../flight-info.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationService } from '../notification-snack.service';
@@ -35,7 +36,8 @@ import { NotificationService } from '../notification-snack.service';
     MatNativeDateModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    OnlyWholeNumberDirective
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' }
@@ -82,11 +84,12 @@ export class FlightDetailsComponent implements OnInit {
     this.form = this._formBuilder.group({
       airline: ['', [Validators.required]], // Initialize without the custom validator was getting errors if I tried to initalized it with the form builder
       arrivalDate: ['', Validators.required],
-      arrivalTime: ['', [Validators.required, arrivalTimeValidator()]],
+      arrivalTime: ['', [Validators.required]],
       flightNumber: ['', [Validators.required, airlineNumberValidator()]],
-      numOfGuests: [1, [Validators.required, Validators.min(1)]],
+      numOfGuests: [1, [Validators.required, Validators.min(1), wholeNumberValidator()]],
       comments: ['']
-    });
+    }, 
+    { validators: arrivalDateTimeValidator() } ); // Apply the validator to the entire form since I NEED the selected date in order validate the time correctly. 
 
     this.filteredAirlines = this.form.get('airline')!.valueChanges.pipe(
       startWith(''),
