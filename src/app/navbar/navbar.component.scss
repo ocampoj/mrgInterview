@@ -1,0 +1,54 @@
+.custom-toolbar {
+    background-color: #4C8341 !important;
+    color: white !important;  
+  }
+  
+ 
+    img {
+        height: 50px!important;
+        width: 150px!important;
+    }
+
+    .mat-toolbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 16px;
+        background-color: #3f51b5;  
+      
+        .navbar-container {
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+      
+        .navbar-logo {
+          margin-right: 8px;
+        }
+      
+        .navbar-title {
+          display: flex;
+          align-items: center;
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: white;
+      
+          mat-icon {
+            margin-right: 4px;
+            color: #f54242;  
+          }
+        }
+      
+        .spacer {
+          flex: 1;  
+        }
+      
+        .nav-link {
+          color: white;
+          font-weight: 500;
+      
+          &:hover {
+            color: #ffcc00;
+          }
+        }
+      }
+      

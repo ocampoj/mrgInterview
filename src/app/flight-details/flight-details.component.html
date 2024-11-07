@@ -1,0 +1,89 @@
+<div class="register-form">
+    <div>
+      <label class="lbFlightDetails">Flight Details</label>
+    </div>
+    <div class="formBackground"></div>
+  
+    <form class="fFlightDetails" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <!-- Airline -->
+        <mat-form-field floatLabel="auto" appearance="outline" class="form-field">
+          <input
+            type="text"
+            matInput
+            formControlName="airline"
+            placeholder="Select airline"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let airline of (filteredAirlines | async)" [value]="airline">
+              {{ airline }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-hint>Choose an airline from the list</mat-hint>
+          <mat-error *ngIf="submitted && f['airline'].hasError('invalidAirline')">
+            Please select a valid airline from the list.
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Arrival Date and Time-->
+        <div class="side-by-side">
+          <!-- Arrival Date -->
+          <mat-form-field floatLabel="auto" appearance="outline" class="form-field">
+            <input  formControlName="arrivalDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker"  placeholder="Arrival date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="multi-year" [startAt]="minDate"></mat-datepicker>
+            <mat-hint>Date: MM/DD/YYYY</mat-hint>
+            <mat-error *ngIf="submitted && f['arrivalDate'].errors?.['required']">
+              Arrival date is required
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Arrival Time -->
+          <mat-form-field floatLabel="auto" appearance="outline" class="form-field">
+            <input matInput type="time" formControlName="arrivalTime" placeholder="Arrival time" />
+            <mat-hint>Specify the time of arrival</mat-hint>
+            <mat-error *ngIf="submitted && f['arrivalTime'].errors?.['required']">
+              Arrival time is required
+            </mat-error>
+            <mat-error *ngIf="f['arrivalTime'].hasError('invalidArrivalTime')">
+                Please select a time that is in the future.
+              </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <!-- Flight Number -->
+        <mat-form-field floatLabel="auto" appearance="outline" class="form-field">
+          <input matInput type="text" formControlName="flightNumber" placeholder="Flight number" />
+          <mat-hint>Enter your flight number</mat-hint>
+          <mat-error *ngIf="submitted && f['flightNumber'].errors?.['required'] &&f['airlineNumber'].errors?.['invalidAirline']">
+            Flight number is required
+          </mat-error>
+          <mat-error *ngIf="f['flightNumber'].hasError('invalidAirline')">
+            Invalid airline number format. Please use format like AA1234.
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Number of Guests -->
+        <mat-form-field floatLabel="auto" appearance="outline" class="form-field">
+          <input matInput type="number" formControlName="numOfGuests" placeholder="Number of guests" min="1" />
+          <mat-hint>Guests, including yourself</mat-hint>
+          <mat-error *ngIf="submitted && f['numOfGuests'].errors?.['required']">
+            Number of guests is required
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Comments-->
+        <mat-form-field floatLabel="auto" appearance="outline" class="form-field comment-field">
+          <textarea matInput formControlName="comments" rows="3" placeholder="Additional comments"></textarea>
+          <mat-hint>Any additional details or requests</mat-hint>
+        </mat-form-field>
+      </div>
+      
+      <div class="form-group">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
+      </div>
+    </form>
+  </div>
+  

@@ -1,0 +1,56 @@
+.register-form {
+  width: 50%;
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+  border: 1px solid #4C8341;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+}
+
+.lbFlightDetails {
+    height: 30px;
+    width: 98%;
+    color: white;
+    background-color: #4C8341;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    font-size: 1.2rem; 
+    margin-bottom: 0.5rem;
+    padding: 8px; 
+  }
+  
+
+
+
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.side-by-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.comment-field {
+  min-height: 60px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+// Button styling for compact form
+button {
+  padding: 6px 16px;
+  font-size: 0.9rem;
+}

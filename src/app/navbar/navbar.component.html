@@ -1,0 +1,18 @@
+<mat-toolbar class="mat-elevation-z4 custom-toolbar">
+    <div class="navbar-container">
+      <img
+        src="https://mrgvacationpackages.com/wp-content/uploads/2023/01/monster-logo-white-2024.png"
+        alt="Logo"
+        width="48"
+        height="48"
+        class="navbar-logo"
+      />
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/flight-details']" class="nav-link">Home</a>
+      <a mat-button [routerLink]="['/flight-details']" class="nav-link">Flights</a>
+  
+      <a *ngIf="!(user$ | async)" mat-button [routerLink]="['/login']" class="nav-link">Login</a>
+      <button *ngIf="user$ | async" mat-button (click)="logout()" class="nav-link">Logout</button>
+    </div>
+  </mat-toolbar>
+  
