@@ -16,7 +16,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { map, Observable, startWith } from 'rxjs';
-import { airlineNumberValidator, arrivalDateTimeValidator, wholeNumberValidator } from '../utility/flightValidator';
+import { airlineNumberValidator, arrivalDateTimeValidator } from '../utility/flightValidator';
 import { OnlyWholeNumberDirective } from '../utility/only-whole-number.directive';
 import { FlightInfoService } from '../flight-info.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -86,7 +86,7 @@ export class FlightDetailsComponent implements OnInit {
       arrivalDate: ['', Validators.required],
       arrivalTime: ['', [Validators.required]],
       flightNumber: ['', [Validators.required, airlineNumberValidator()]],
-      numOfGuests: [1, [Validators.required, Validators.min(1), wholeNumberValidator()]],
+      numOfGuests: [1, [Validators.required, Validators.min(1)]],
       comments: ['']
     }, 
     { validators: arrivalDateTimeValidator() } ); // Apply the validator to the entire form since I NEED the selected date in order validate the time correctly. 

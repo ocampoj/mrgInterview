@@ -9,27 +9,30 @@ export function airlineNumberValidator(): ValidatorFn {
   };
 }
 
-// Custom validator for arrival time
-export function arrivalTimeValidator(): ValidatorFn {
+// Custom validator for arrival time taking account both controls 
+export function arrivalDateTimeValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const selectedTime = control.value;
-    if (!selectedTime) return null;  
-    
-    const [selectedHours, selectedMinutes] = selectedTime.split(':').map(Number);
+    const arrivalDateControl = control.get('arrivalDate');
+    const arrivalTimeControl = control.get('arrivalTime');
 
-    // Get current time
+    // Ensure both date and time controls are present and have values
+    if (!arrivalDateControl || !arrivalTimeControl || !arrivalDateControl.value || !arrivalTimeControl.value) {
+      return null;
+    }
+
+    const selectedDate = new Date(arrivalDateControl.value);
+    const [selectedHours, selectedMinutes] = arrivalTimeControl.value.split(':').map(Number);
+
+    selectedDate.setHours(selectedHours, selectedMinutes, 0, 0);
+
+    // Get the current date and time
     const now = new Date();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
 
-    // Check if the selected time is in the past
-    if (
-      selectedHours < currentHours ||
-      (selectedHours === currentHours && selectedMinutes <= currentMinutes)
-    ) {
+    // Check if the selected datetime is in the past
+    if (selectedDate <= now) {
       return { invalidArrivalTime: true };
     }
 
-    return null; // No error if selected time is in the future
+    return null; 
   };
 }

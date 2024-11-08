@@ -7,6 +7,7 @@ import { routes } from './app/app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from './app/environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -14,6 +15,6 @@ bootstrapApplication(AppComponent, {
     provideAuth(() => getAuth()),
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
-    provideAnimations() // Add animation support
+    provideAnimations(), provideAnimationsAsync()
   ]
 }).catch(err => console.error(err));
