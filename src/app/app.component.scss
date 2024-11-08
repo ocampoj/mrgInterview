@@ -1,7 +1,11 @@
 #bodyContainer {
     padding-top: 10px;
-    padding-bottom: 10px;
     overflow: hidden;
     background-image: url("./images/beach.jpg");
-    background-size: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
